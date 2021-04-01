@@ -1,0 +1,15 @@
+POST http://localhost:8080/
+content-type: application/json
+
+{
+  "username": "gena",
+  "age": 15
+}
+
+
+###
+
+POST http://localhost:8080/activate/gena
+content-type: application/json
+
+
