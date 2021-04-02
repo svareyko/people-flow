@@ -7,6 +7,7 @@ import com.reconnect.web.peopleflow.enums.EmployeeState;
 import com.reconnect.web.peopleflow.exceptions.RequiredEmployeeAsReturnException;
 import com.reconnect.web.peopleflow.exceptions.UsernameNotProvidedException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -28,6 +29,7 @@ import static com.reconnect.web.peopleflow.enums.Attrs.ATTR_USER_ID;
  * @author s.vareyko
  * @since 01.04.2021
  */
+@Slf4j
 @Aspect
 @Component
 @AllArgsConstructor
@@ -79,6 +81,12 @@ public class EmployeeAdvisor {
         // restore state
         final StateMachine<EmployeeState, EmployeeEvent> machine = stateMachineFactory.getStateMachine(stringId);
         persister.restore(machine, stringId);
+
+        final EmployeeState sourceState = machine.getState().getId();
+        if (sourceState != EmployeeState.ADDED) {
+            log.warn("State will not be changed, allowed conversion only from ADDED state");
+            return;
+        }
 
         // put values into it
         final Map<Object, Object> variables = machine.getExtendedState().getVariables();

@@ -49,7 +49,7 @@ public class EmployeeAdvisorTest {
 
     @Test
     public void employeeActivateTest() throws Exception {
-        final EmployeeDto existing = prepareState();
+        final EmployeeDto existing = prepareState("Nick");
         final Long userId = existing.getId();
         final String userIdStr = String.valueOf(userId);
 
@@ -68,7 +68,7 @@ public class EmployeeAdvisorTest {
 
     @Test
     public void employeeInCheckTest() throws Exception {
-        final EmployeeDto existing = prepareState();
+        final EmployeeDto existing = prepareState("Adolf");
         final Long userId = existing.getId();
         final String userIdStr = String.valueOf(userId);
 
@@ -87,7 +87,7 @@ public class EmployeeAdvisorTest {
 
     @Test
     public void employeeApproveTest() throws Exception {
-        final EmployeeDto existing = prepareState();
+        final EmployeeDto existing = prepareState("Han");
         final Long userId = existing.getId();
         final String userIdStr = String.valueOf(userId);
 
@@ -104,8 +104,8 @@ public class EmployeeAdvisorTest {
         assertThat(resultState).isEqualTo(EmployeeState.APPROVED);
     }
 
-    private EmployeeDto prepareState() {
-        final EmployeeDto dto = createEmployeeDto(false);
+    private EmployeeDto prepareState(final String username) {
+        final EmployeeDto dto = createEmployeeDto(username, false);
         return controller.createEmployee(dto);
     }
 }

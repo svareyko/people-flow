@@ -11,8 +11,12 @@ import com.reconnect.web.peopleflow.model.Employee;
 public final class EmployeeUtils {
 
     public static EmployeeDto createEmployeeDto(final boolean withState) {
+        return createEmployeeDto("Artsem", withState);
+    }
+
+    public static EmployeeDto createEmployeeDto(final String username, final boolean withState) {
         final EmployeeDto dto = new EmployeeDto();
-        dto.setUsername("Artsem");
+        dto.setUsername(username);
         dto.setAge(32);
         dto.setTechnology("Java");
         dto.setExperience(15);
@@ -22,7 +26,6 @@ public final class EmployeeUtils {
         }
         return dto;
     }
-
 
     public static Employee createEmployeeEntity(final boolean withState) {
         final Employee entity = new Employee();
