@@ -8,7 +8,6 @@ import com.reconnect.web.peopleflow.repository.EmployeeRepository;
 import com.reconnect.web.peopleflow.service.EmployeeService;
 import com.reconnect.web.peopleflow.service.mapper.EmployeeMapper;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -34,7 +33,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return mapper.map(saved);
     }
 
-    @SneakyThrows
     @Override
     @Transactional
     public EmployeeState update(final String username, final EmployeeState state) {

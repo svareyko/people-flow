@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -21,11 +22,12 @@ import javax.validation.Valid;
 @Slf4j
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api/employee")
 public class EmployeeController {
 
     private final EmployeeService service;
 
-    @PostMapping
+    @PostMapping("/create")
     @EmployeeCreateAction
     public EmployeeDto createEmployee(@Valid @RequestBody final EmployeeDto employee) {
         return service.create(employee);

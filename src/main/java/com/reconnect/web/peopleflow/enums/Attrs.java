@@ -4,10 +4,10 @@ package com.reconnect.web.peopleflow.enums;
  * @author s.vareyko
  * @since 01.04.2021
  */
-public interface Attrs {
-    String ATTR_USERNAME = "USERNAME";
-    String ATTR_STATE = "STATE";
+public final class Attrs {
+    public static final String ATTR_USERNAME = "USERNAME";
+    public static final String ATTR_STATE = "STATE";
 
-    int AGE_MIN = 18;
-    int AGE_MAX = 80;
+    public static final int AGE_MIN = 18;
+    public static final int AGE_MAX = 80;
 }

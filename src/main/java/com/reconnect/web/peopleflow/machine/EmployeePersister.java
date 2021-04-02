@@ -3,7 +3,6 @@ package com.reconnect.web.peopleflow.machine;
 import com.reconnect.web.peopleflow.enums.EmployeeEvent;
 import com.reconnect.web.peopleflow.enums.EmployeeState;
 import com.reconnect.web.peopleflow.exceptions.MissingStateException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.statemachine.StateMachineContext;
 import org.springframework.statemachine.StateMachinePersist;
 
@@ -15,7 +14,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author s.vareyko
  * @since 01.04.2021
  */
-@RequiredArgsConstructor
 public class EmployeePersister implements StateMachinePersist<EmployeeState, EmployeeEvent, String> {
 
     // todo: implement storing in the DB if need to remember machine states between restarts
