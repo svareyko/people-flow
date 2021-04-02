@@ -1,4 +1,21 @@
+Note:
 
+The application written for Java11 and uses an in-memory H2 database, so doesn't require any additional actions to start, except building a jar and execution of the command to start. Also used default port 8080 and have configured swagger at /swagger-ui endpoint.
+
+How to run with Java 11:
+```shell script
+mvn clean install
+java -jar target/people-flow-DEMO.jar
+```
+
+How to run with Docker: 
+```shell script
+mvn clean install
+docker build --build-arg=target/people-flow-DEMO.jar -t people-flow-demo .
+docker run -p 8080:8080 people-flow-demo
+```
+
+---
 
 PeopleFlow (www.pplflw.com) is a global HR platform enabling companies to hire & onboard their employees internationally, at the push of a button. It is our mission to create opportunities for anyone to work from anywhere. As work is becoming even more global and remote, there has never been a bigger chance to build a truly global HR-tech company.
 

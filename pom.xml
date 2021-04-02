@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.reconnect.web</groupId>
     <artifactId>people-flow</artifactId>
-    <version>DEMO</version>
+    <version>demo</version>
     <name>PeopleFlow</name>
     <description>People Flow example project</description>
 
