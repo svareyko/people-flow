@@ -5,7 +5,7 @@ package com.reconnect.web.peopleflow.enums;
  * @since 01.04.2021
  */
 public final class Attrs {
-    public static final String ATTR_USERNAME = "USERNAME";
+    public static final String ATTR_USER_ID = "USER_ID";
     public static final String ATTR_STATE = "STATE";
 
     public static final int AGE_MIN = 18;

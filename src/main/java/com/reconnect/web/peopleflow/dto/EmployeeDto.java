@@ -17,6 +17,7 @@ import static com.reconnect.web.peopleflow.enums.Attrs.AGE_MIN;
 @Data
 public class EmployeeDto {
 
+    private Long id;
     @NotEmpty
     private String username;
     @Min(AGE_MIN)

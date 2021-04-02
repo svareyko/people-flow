@@ -20,10 +20,10 @@ public interface EmployeeService {
     /**
      * A simple method that executes the update of entry in the DB and validates the result.
      *
-     * @param username is a unique identifier of entity that should be updated
-     * @param state    is to be set to that user
+     * @param id    user's ID
+     * @param state is to be set to that user
      * @return new state
      * @throws com.reconnect.web.peopleflow.exceptions.StateUpdateException if no changes performed to DB
      */
-    EmployeeState update(String username, EmployeeState state);
+    EmployeeState update(Long id, EmployeeState state);
 }

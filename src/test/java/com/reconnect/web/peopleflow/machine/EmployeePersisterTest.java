@@ -25,12 +25,12 @@ public class EmployeePersisterTest {
 
     @Test
     public void testNormalReadTest() {
-        final String username = "Donald";
+        final String userId = "Donald";
         final EmployeeState state = EmployeeState.ADDED;
         final EmployeeEvent event = EmployeeEvent.EMPLOYEE_ADD;
-        persister.write(createContext(state, event), username);
+        persister.write(createContext(state, event), userId);
 
-        final StateMachineContext<EmployeeState, EmployeeEvent> context = persister.read(username);
+        final StateMachineContext<EmployeeState, EmployeeEvent> context = persister.read(userId);
 
         assertThat(context.getState()).isEqualTo(state);
         assertThat(context.getEvent()).isEqualTo(event);
@@ -38,21 +38,21 @@ public class EmployeePersisterTest {
 
     @Test
     public void testIncorrectNameReadTest() {
-        final String readUsername = "Bob";
-        final String existingUsername = "Alisha";
+        final String readUserId = "Bob";
+        final String existingUserId = "Alisha";
         final EmployeeState state = EmployeeState.ADDED;
         final EmployeeEvent event = EmployeeEvent.EMPLOYEE_ADD;
-        persister.write(createContext(state, event), existingUsername);
+        persister.write(createContext(state, event), existingUserId);
 
-        assertThrows(MissingStateException.class, () -> persister.read(readUsername));
+        assertThrows(MissingStateException.class, () -> persister.read(readUserId));
     }
 
 
     @Test
     public void testEmptyContextReadTest() {
-        final String username = "Jonathan";
+        final String userId = "Jonathan";
 
-        assertThrows(MissingStateException.class, () -> persister.read(username));
+        assertThrows(MissingStateException.class, () -> persister.read(userId));
     }
 
     private StateMachineContext<EmployeeState, EmployeeEvent> createContext(final EmployeeState state, final EmployeeEvent event) {

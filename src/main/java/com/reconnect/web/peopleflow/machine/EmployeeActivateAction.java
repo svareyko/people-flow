@@ -30,9 +30,9 @@ public class EmployeeActivateAction implements Action<EmployeeState, EmployeeEve
     @Override
     public void execute(final StateContext<EmployeeState, EmployeeEvent> context) {
         final ExtendedState ext = context.getExtendedState();
-        final String username = ext.get(Attrs.ATTR_USERNAME, String.class);
+        final Long userId = ext.get(Attrs.ATTR_USER_ID, Long.class);
         final EmployeeState state = ext.get(Attrs.ATTR_STATE, EmployeeState.class);
-        final EmployeeState newState = employeeService.update(username, state);
-        log.info("Assigned a new state: {} to {}", newState, username);
+        final EmployeeState newState = employeeService.update(userId, state);
+        log.info("Assigned a new state: {} to {}", newState, userId);
     }
 }

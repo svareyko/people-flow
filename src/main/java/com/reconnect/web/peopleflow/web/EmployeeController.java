@@ -34,20 +34,20 @@ public class EmployeeController {
     }
 
     @EmployeeUpdateAction(state = EmployeeState.ACTIVE)
-    @PostMapping("/activate/{username}")
-    public void activateEmployee(@PathVariable final String username) {
-        log.info("Requested activation for user {}", username);
+    @PostMapping("/activate/{userId}")
+    public void activateEmployee(@PathVariable final Long userId) {
+        log.info("Requested activation for user with ID {}", userId);
     }
 
     @EmployeeUpdateAction(state = EmployeeState.IN_CHECK)
-    @PostMapping("/check/{username}")
-    public void inCheckEmployee(@PathVariable final String username) {
-        log.info("Requested in-check for user {}", username);
+    @PostMapping("/check/{userId}")
+    public void inCheckEmployee(@PathVariable final Long userId) {
+        log.info("Requested in-check for user with ID {}", userId);
     }
 
     @EmployeeUpdateAction(state = EmployeeState.APPROVED)
-    @PostMapping("/approve/{username}")
-    public void approveEmployee(@PathVariable final String username) {
-        log.info("Requested approval for user {}", username);
+    @PostMapping("/approve/{userId}")
+    public void approveEmployee(@PathVariable final Long userId) {
+        log.info("Requested approval for user with ID {}", userId);
     }
 }

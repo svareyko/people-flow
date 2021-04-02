@@ -21,6 +21,7 @@ public class EmployeeMapper {
      */
     public Employee map(final EmployeeDto dto) {
         final Employee entity = new Employee();
+        entity.setId(dto.getId());
         entity.setAge(dto.getAge());
         entity.setContract(dto.getContract());
         entity.setExperience(dto.getExperience());
@@ -38,6 +39,7 @@ public class EmployeeMapper {
      */
     public EmployeeDto map(final Employee entity) {
         final EmployeeDto dto = new EmployeeDto();
+        dto.setId(entity.getId());
         dto.setUsername(entity.getUsername());
         dto.setExperience(entity.getExperience());
         dto.setAge(entity.getAge());

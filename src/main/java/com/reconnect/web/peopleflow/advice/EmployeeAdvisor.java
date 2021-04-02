@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.reconnect.web.peopleflow.enums.Attrs.ATTR_STATE;
-import static com.reconnect.web.peopleflow.enums.Attrs.ATTR_USERNAME;
+import static com.reconnect.web.peopleflow.enums.Attrs.ATTR_USER_ID;
 
 /**
  * @author s.vareyko
@@ -51,13 +51,14 @@ public class EmployeeAdvisor {
 
         EmployeeDto employee = (EmployeeDto) retVal;
         if (Objects.isNull(employee)) throw new RequiredEmployeeAsReturnException();
-        final String username = employee.getUsername();
+        final Long id = employee.getId();
+        final String stringId = String.valueOf(id);
 
         // persist SM after employee created
-        final StateMachine<EmployeeState, EmployeeEvent> machine = stateMachineFactory.getStateMachine(username);
-        machine.getExtendedState().getVariables().put(ATTR_USERNAME, username);
+        final StateMachine<EmployeeState, EmployeeEvent> machine = stateMachineFactory.getStateMachine(stringId);
+        machine.getExtendedState().getVariables().put(ATTR_USER_ID, id);
         machine.getExtendedState().getVariables().put(ATTR_STATE, employee.getState());
-        persister.persist(machine, username);
+        persister.persist(machine, stringId);
     }
 
     /**
@@ -70,24 +71,25 @@ public class EmployeeAdvisor {
     @Before("@annotation(com.reconnect.web.peopleflow.advice.annotations.EmployeeUpdateAction)")
     public void beforeEmployeeUpdate(final JoinPoint joinPoint) throws Throwable {
 
-        String username = findFirstStringArgument(joinPoint);
-        if (Objects.isNull(username)) throw new UsernameNotProvidedException();
+        Long id = findFirstLongArgument(joinPoint);
+        final String stringId = String.valueOf(id);
+        if (Objects.isNull(id)) throw new UsernameNotProvidedException();
         final EmployeeState state = findEmployeeState(joinPoint);
 
         // restore state
-        final StateMachine<EmployeeState, EmployeeEvent> machine = stateMachineFactory.getStateMachine(username);
-        persister.restore(machine, username);
+        final StateMachine<EmployeeState, EmployeeEvent> machine = stateMachineFactory.getStateMachine(stringId);
+        persister.restore(machine, stringId);
 
         // put values into it
         final Map<Object, Object> variables = machine.getExtendedState().getVariables();
-        variables.put(ATTR_USERNAME, username);
+        variables.put(ATTR_USER_ID, id);
         variables.put(ATTR_STATE, state);
 
         // execute transition
         machine.sendEvent(EmployeeEvent.EMPLOYEE_ACTIVATE);
 
         // persist results
-        persister.persist(machine, username);
+        persister.persist(machine, stringId);
     }
 
     /**
@@ -96,12 +98,12 @@ public class EmployeeAdvisor {
      * @param joinPoint for a search
      * @return first found string or null
      */
-    private String findFirstStringArgument(final JoinPoint joinPoint) {
+    private Long findFirstLongArgument(final JoinPoint joinPoint) {
         final Object[] args = joinPoint.getArgs();
-        String username = null;
+        Long username = null;
         for (Object arg : args) {
-            if (arg instanceof String) {
-                username = (String) arg;
+            if (arg instanceof Long) {
+                username = (Long) arg;
                 break;
             }
         }

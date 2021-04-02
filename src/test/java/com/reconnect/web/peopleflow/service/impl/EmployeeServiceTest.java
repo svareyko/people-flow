@@ -18,7 +18,7 @@ import static com.reconnect.web.peopleflow.utils.EmployeeUtils.createEmployeeDto
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -64,25 +64,25 @@ public class EmployeeServiceTest {
 
     @Test
     public void updateEmployeeSuccessfulTest() {
-        final String username = "Robert";
+        final Long userId = 983L;
         final EmployeeState state = EmployeeState.ACTIVE;
         final int resultsNum = 1;
-        when(repository.updateState(anyString(), any(EmployeeState.class))).thenReturn(resultsNum);
+        when(repository.updateState(anyLong(), any(EmployeeState.class))).thenReturn(resultsNum);
 
-        final EmployeeState result = employeeService.update(username, state);
+        final EmployeeState result = employeeService.update(userId, state);
 
         assertThat(result).isEqualTo(state);
-        verify(repository).updateState(eq(username), eq(state));
+        verify(repository).updateState(eq(userId), eq(state));
     }
 
     @Test
     public void updateEmployeeFailureTest() {
-        final String username = "Angela";
+        final Long userId = 983L;
         final EmployeeState state = EmployeeState.IN_CHECK;
         final int resultsNum = 0;
-        when(repository.updateState(anyString(), any(EmployeeState.class))).thenReturn(resultsNum);
+        when(repository.updateState(anyLong(), any(EmployeeState.class))).thenReturn(resultsNum);
 
-        assertThrows(StateUpdateException.class, () -> employeeService.update(username, state));
+        assertThrows(StateUpdateException.class, () -> employeeService.update(userId, state));
     }
 
 }

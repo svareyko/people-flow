@@ -25,6 +25,7 @@ public class EmployeeMapperTest {
         final EmployeeDto result = mapper.map(entity);
 
         assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(entity.getId());
         assertThat(result.getUsername()).isEqualTo(entity.getUsername());
         assertThat(result.getAge()).isEqualTo(entity.getAge());
         assertThat(result.getContract()).isEqualTo(entity.getContract());
@@ -40,6 +41,7 @@ public class EmployeeMapperTest {
         final Employee result = mapper.map(dto);
 
         assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(dto.getId());
         assertThat(result.getUsername()).isEqualTo(dto.getUsername());
         assertThat(result.getAge()).isEqualTo(dto.getAge());
         assertThat(result.getContract()).isEqualTo(dto.getContract());

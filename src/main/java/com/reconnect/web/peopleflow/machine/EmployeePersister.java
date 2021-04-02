@@ -17,7 +17,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class EmployeePersister implements StateMachinePersist<EmployeeState, EmployeeEvent, String> {
 
     // todo: implement storing in the DB if need to remember machine states between restarts
-    private final Map<String, StateMachineContext<EmployeeState, EmployeeEvent>> SIMPLEST_FASTEST_RUNTIME_CACHE = new ConcurrentHashMap<>();
+    private final Map<String, StateMachineContext<EmployeeState, EmployeeEvent>> SIMPLEST_FASTEST_RUNTIME_CACHE =
+            new ConcurrentHashMap<>();
 
     @Override
     public void write(final StateMachineContext<EmployeeState, EmployeeEvent> context, final String username) {

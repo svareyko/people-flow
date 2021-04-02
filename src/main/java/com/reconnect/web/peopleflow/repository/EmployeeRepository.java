@@ -13,9 +13,9 @@ import org.springframework.stereotype.Repository;
  * @since 01.04.2021
  */
 @Repository
-public interface EmployeeRepository extends CrudRepository<Employee, String> {
+public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
     @Modifying
-    @Query("update Employee set state = :state where username = :username")
-    int updateState(@Param("username") String username, @Param("state") EmployeeState state);
+    @Query("update Employee set state = :state where id = :id")
+    int updateState(@Param("id") Long id, @Param("state") EmployeeState state);
 }

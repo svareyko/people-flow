@@ -5,10 +5,15 @@ import com.reconnect.web.peopleflow.exceptions.RequiredEmployeeAsReturnException
 import com.reconnect.web.peopleflow.exceptions.StateUpdateException;
 import com.reconnect.web.peopleflow.exceptions.UsernameNotProvidedException;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.persistence.PersistenceException;
+import java.util.Optional;
 
 /**
  * @author s.vareyko
@@ -36,6 +41,23 @@ public class AdviceController {
     public String adviceExceptions(final Exception exception) {
         log.error(exception.getMessage());
         return exception.getMessage();
+    }
+
+    @ExceptionHandler({
+            PersistenceException.class,
+            ConstraintViolationException.class
+    })
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    public String constrainViolation(final Exception exception) {
+        return exception.getCause().getMessage();
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public String dataIntegrityViolationException(final DataIntegrityViolationException exception) {
+        return Optional.ofNullable(exception.getRootCause())
+                .map(Throwable::getMessage)
+                .orElseGet(exception::getMessage);
     }
 
     @ExceptionHandler(Throwable.class)

@@ -11,21 +11,18 @@ import com.reconnect.web.peopleflow.model.Employee;
 public final class EmployeeUtils {
 
     public static EmployeeDto createEmployeeDto(final boolean withState) {
-        return createEmployeeDto("Artsem", withState);
-    }
-
-    public static EmployeeDto createEmployeeDto(final String username, final boolean withState) {
         final EmployeeDto dto = new EmployeeDto();
-        dto.setUsername(username);
+        dto.setUsername("Artsem");
         dto.setAge(32);
         dto.setTechnology("Java");
-        dto.setExperience(9);
+        dto.setExperience(15);
         dto.setContract("Hired");
         if (withState) {
             dto.setState(EmployeeState.ACTIVE);
         }
         return dto;
     }
+
 
     public static Employee createEmployeeEntity(final boolean withState) {
         final Employee entity = new Employee();

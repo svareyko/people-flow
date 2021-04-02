@@ -35,10 +35,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public EmployeeState update(final String username, final EmployeeState state) {
-        if (repository.updateState(username, state) == ONE_CHANGE) {
+    public EmployeeState update(final Long id, final EmployeeState state) {
+        if (repository.updateState(id, state) == ONE_CHANGE) {
             return state;
         }
-        throw new StateUpdateException(username, state);
+        throw new StateUpdateException(id, state);
     }
 }

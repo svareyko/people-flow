@@ -14,7 +14,7 @@ import org.springframework.statemachine.support.DefaultStateContext;
 import java.util.HashMap;
 
 import static com.reconnect.web.peopleflow.enums.Attrs.ATTR_STATE;
-import static com.reconnect.web.peopleflow.enums.Attrs.ATTR_USERNAME;
+import static com.reconnect.web.peopleflow.enums.Attrs.ATTR_USER_ID;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -40,40 +40,40 @@ public class EmployeeActivateActionTest {
 
     @Test
     public void activateActionTest() {
-        final String username = "Mark";
+        final Long userId = 4187894L;
         final EmployeeState state = EmployeeState.ACTIVE;
-        mockAttributes(username, state);
+        mockAttributes(userId, state);
 
         employeeActivateAction.execute(context);
 
-        verify(employeeService).update(eq(username), eq(state));
+        verify(employeeService).update(eq(userId), eq(state));
     }
 
     @Test
     public void inCheckActionTest() {
-        final String username = "Kate";
+        final Long userId = 2L;
         final EmployeeState state = EmployeeState.IN_CHECK;
-        mockAttributes(username, state);
+        mockAttributes(userId, state);
 
         employeeActivateAction.execute(context);
 
-        verify(employeeService).update(eq(username), eq(state));
+        verify(employeeService).update(eq(userId), eq(state));
     }
 
     @Test
     public void approveActionTest() {
-        final String username = "Kate";
+        final Long userId = 5L;
         final EmployeeState state = EmployeeState.APPROVED;
-        mockAttributes(username, state);
+        mockAttributes(userId, state);
 
         employeeActivateAction.execute(context);
 
-        verify(employeeService).update(eq(username), eq(state));
+        verify(employeeService).update(eq(userId), eq(state));
     }
 
-    private void mockAttributes(final String username, final EmployeeState state) {
+    private void mockAttributes(final Long id, final EmployeeState state) {
         final HashMap<Object, Object> variables = new HashMap<>();
-        variables.put(ATTR_USERNAME, username);
+        variables.put(ATTR_USER_ID, id);
         variables.put(ATTR_STATE, state);
         when(context.getExtendedState()).thenReturn(new DefaultExtendedState(variables));
     }
